@@ -71,6 +71,178 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+/*
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+ Slice method
+
+console.log(arr.slice(2));
+console.log(arr.slice(2, 4));
+console.log(arr.slice(-2));
+console.log(arr.slice(1, -1));
+console.log(arr.slice()); // Shallow copy
+console.log([...arr]); // Shallow copy
+
+ Splice method ( It mutate original array)
+
+ console.log(arr.splice(2));
+console.log(arr.splice(-1));
+console.log(arr);
+arr.splice(1, 2); // deleted 2
+console.log(arr);
+
+ Reverse method (Mutate original array)
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h', 'g', 'f'];
+
+console.log(arr2.reverse());
+console.log(arr2);
+
+ Concat method
+const letter = arr.concat(arr2);
+console.log([...arr, ...arr2]);
+console.log(letter);
+
+ Join method
+
+console.log(letter.join(' - '));
+
+
+
+ The new at method
+const arr = [22, 11, 28];
+
+console.log(arr[0]);
+console.log(arr.at(0));
+
+ gives last value of array
+console.log(arr[arr.length - 1]);
+console.log(arr.slice(-1)[0]);
+
+console.log(arr.at(-1)); // latest method
+
+console.log('Niranjan'.at(0));
+console.log('Niranjan'.at(-1));
+
+*/
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// for (const mov of movements) {
+//   if (mov > 0) {
+//     console.log(`You deposited ${mov}`);
+//   } else {
+//     console.log(`You credited ${Math.abs(mov)}`);
+//   }
+// }
+
+// with index
+for (const [i, mov] of movements.entries()) {
+  if (mov > 0) {
+    console.log(` Movements ${i}: You deposited ${mov} `);
+  } else {
+    console.log(` Movements ${i}:You credited ${Math.abs(mov)} `);
+  }
+}
+
+console.log('------- ForEach -------');
+
+// movements.forEach(function (mov) {
+//   if (mov > 0) {
+//     console.log(`You deposited ${mov}  `);
+//   } else {
+//     console.log(`You credited ${Math.abs(mov)} `);
+//   }
+// });
+
+// with index --->
+movements.forEach(function (mov, i, arr) {
+  if (mov > 0) {
+    console.log(` Movements ${i}: You deposited ${mov}  `);
+  } else {
+    console.log(` Movements ${i}: You credited ${Math.abs(mov)} `);
+  }
+
+  // console.log(arr);
+});
+
+// function name(name) {
+//   console.log(arguments);
+// }
+
+// const name = name => {
+//   console.log(arguments);
+// };
+// name('Niranjan');
+
+console.log('---------------------------------------------');
+
+const o = {
+  a: 1,
+  b: 2,
+  // __proto__ sets the [[Prototype]]. It's specified here
+  // as another object literal.
+  __proto__: {
+    b: 3,
+    c: 4,
+    __proto__: {
+      e: 5,
+      f: 6,
+      __proto__: {
+        g: 7,
+        h: 8,
+      },
+    },
+  },
+};
+
+// o.[[Prototype]] has properties b and c.
+// o.[[Prototype]].[[Prototype]] is Object.prototype (we will explain
+// what that means later).
+// Finally, o.[[Prototype]].[[Prototype]].[[Prototype]] is null.
+// This is the end of the prototype chain, as null,
+// by definition, has no [[Prototype]].
+// Thus, the full prototype chain looks like:
+// { a: 1, b: 2 } ---> { b: 3, c: 4 } ---> Object.prototype ---> null
+
+console.log(o.a); // 1
+// Is there an 'a' own property on o? Yes, and its value is 1.
+
+console.log(o.b); // 2
+// Is there a 'b' own property on o? Yes, and its value is 2.
+// The prototype also has a 'b' property, but it's not visited.
+// This is called Property Shadowing
+
+console.log(o.c); // 4
+// Is there a 'c' own property on o? No, check its prototype.
+// Is there a 'c' own property on o.[[Prototype]]? Yes, its value is 4.
+
+console.log(o.d); // undefined
+// Is there a 'd' own property on o? No, check its prototype.
+// Is there a 'd' own property on o.[[Prototype]]? No, check its prototype.
+// o.[[Prototype]].[[Prototype]] is Object.prototype and
+// there is no 'd' property by default, check its prototype.
+// o.[[Prototype]].[[Prototype]].[[Prototype]] is null, stop searching,
+// no property found, return undefined.
+console.log(o.e);
+console.log(o.f);
+console.log(o.g);
+console.log(o.h);
+
+const boxPrototype = {
+  getValue() {
+    return this.value;
+  },
+};
+
+const boxes = [
+  { value: 1, __proto__: boxPrototype },
+  { value: 2, __proto__: boxPrototype },
+  { value: 3, __proto__: boxPrototype },
+];
+
+console.log(boxes).__proto__;
