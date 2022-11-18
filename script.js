@@ -70,7 +70,7 @@ const displayMovements = function (movements) {
     const html = `
   <div class="movements__row">
     <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-    <div class="movements__value"> ${mov} </div>
+    <div class="movements__value"> ${mov}₹ </div>
   </div>
   `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -86,6 +86,29 @@ const calcDisplayBalance = function (movements) {
 
 calcDisplayBalance(account1.movements);
 
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = ` ${incomes}₹`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}₹`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 1);
+  labelSumInterest.innerHTML = `${interest}₹`;
+};
+
+calcDisplaySummary(account1.movements);
+
 const user = 'Manoj saroj'; // ms
 
 const createUsernames = function (accs) {
@@ -100,7 +123,14 @@ const createUsernames = function (accs) {
 };
 
 createUsernames(accounts);
-console.log(accounts);
+
+// Event handlers
+let currentUser = btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  currentUser = accounts.find(acc => acc.username === inputLoginUsername.value);
+  console.log(currentUser);
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -225,8 +255,8 @@ console.log('---------------------------------------------');
 const o = {
   a: 1,
   b: 2,
-  // __proto__ sets the [[Prototype]]. It's specified here
-  // as another object literal.
+  __proto__ sets the [[Prototype]]. It's specified here
+  as another object literal.
   __proto__: {
     b: 3,
     c: 4,
@@ -290,13 +320,13 @@ console.log(boxes).__proto__;
 
 
 
-// map method
+map method
 const euroToUsd = 1.1;
 const euroToInd = 84.75;
 
-// const movementInd = movements.map(function (mov) {
-//   return mov * euroToInd;
-// });
+const movementInd = movements.map(function (mov) {
+  return mov * euroToInd;
+});
 
 const movementInd = movements.map(mov => mov * euroToInd);
 console.log(movements);
@@ -315,13 +345,13 @@ const movementDescriptions = movements.map(
       mov
     )} `
 
-  // if (mov > 0) {
-  //   return ` Movements ${i}: You deposited ${mov}  `;
-  // } else {
-  //   return ` Movements ${i}: You credited ${Math.abs(mov)} `;
-  // }
+  if (mov > 0) {
+    return ` Movements ${i}: You deposited ${mov}  `;
+  } else {
+    return ` Movements ${i}: You credited ${Math.abs(mov)} `;
+  }
 
-  // console.log(arr);
+  console.log(arr);
 );
 console.log(movementDescriptions);
 
@@ -351,22 +381,22 @@ console.log(movements);
 console.log(deposit);
 console.log(widhdrawal);
 
-*/
-// Reduce Method
+
+Reduce Method
 
 console.log(movements);
-// accumulator ---> SNOWBALL
+accumulator ---> SNOWBALL
 
-// const balance = movements.reduce(function (acc, cur, i, arr) {
-//   console.log(` Iteration ${i} : ${acc}`);
-//   return acc + cur;
-// }, 100);
+const balance = movements.reduce(function (acc, cur, i, arr) {
+  console.log(` Iteration ${i} : ${acc}`);
+  return acc + cur;
+}, 100);
 
 const balance = movements.reduce((acc, cur) => acc + cur, 100);
 
 console.log(balance);
 
-//
+
 let balance2 = 100;
 for (const mov of movements) {
   balance2 += mov;
@@ -374,4 +404,52 @@ for (const mov of movements) {
 
 console.log(balance2);
 
-// Maximum value of the movements
+Maximum value of the movements
+
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+
+console.log(max);
+
+const euroToInd = 84;
+
+Pipeline
+const totalDeposit = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * euroToInd)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDeposit);
+
+
+
+const calcAverageHumanAge = ages => {
+  const average = ages
+    .map(age => (age <= 2 ? 2 * age : 16 + age * 4))
+    .filter(age => age >= 18)
+    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+  return average;
+};
+console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+
+
+Find method
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
+
+const account = accounts.find(acc => acc.owner === 'Sarah Smith');
+const account5 = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
+console.log(account5);
+
+for (const acc of accounts) {
+  if (acc.owner === 'Sarah Smith') {
+    console.log(acc);
+  }
+}
+
+*/
