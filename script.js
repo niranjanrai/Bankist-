@@ -61,6 +61,40 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// -----------------
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+  <div class="movements__row">
+    <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+    <div class="movements__value"> ${mov} </div>
+  </div>
+  `;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
+const user = 'Manoj saroj'; // ms
+
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    //
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(word => word[0])
+      .join('');
+  });
+};
+
+createUsernames(accounts);
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -71,7 +105,7 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /*
@@ -128,19 +162,19 @@ console.log(arr.at(-1)); // latest method
 console.log('Niranjan'.at(0));
 console.log('Niranjan'.at(-1));
 
-*/
+
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-// for (const mov of movements) {
-//   if (mov > 0) {
-//     console.log(`You deposited ${mov}`);
-//   } else {
-//     console.log(`You credited ${Math.abs(mov)}`);
-//   }
-// }
+ for (const mov of movements) {
+   if (mov > 0) {
+     console.log(`You deposited ${mov}`);
+   } else {
+     console.log(`You credited ${Math.abs(mov)}`);
+   }
+ }
 
-// with index
+ with index
 for (const [i, mov] of movements.entries()) {
   if (mov > 0) {
     console.log(` Movements ${i}: You deposited ${mov} `);
@@ -151,15 +185,15 @@ for (const [i, mov] of movements.entries()) {
 
 console.log('------- ForEach -------');
 
-// movements.forEach(function (mov) {
-//   if (mov > 0) {
-//     console.log(`You deposited ${mov}  `);
-//   } else {
-//     console.log(`You credited ${Math.abs(mov)} `);
-//   }
-// });
+ movements.forEach(function (mov) {
+   if (mov > 0) {
+     console.log(`You deposited ${mov}  `);
+   } else {
+     console.log(`You credited ${Math.abs(mov)} `);
+   }
+ });
 
-// with index --->
+ with index --->
 movements.forEach(function (mov, i, arr) {
   if (mov > 0) {
     console.log(` Movements ${i}: You deposited ${mov}  `);
@@ -167,17 +201,17 @@ movements.forEach(function (mov, i, arr) {
     console.log(` Movements ${i}: You credited ${Math.abs(mov)} `);
   }
 
-  // console.log(arr);
+   console.log(arr);
 });
 
-// function name(name) {
-//   console.log(arguments);
-// }
+ function name(name) {
+   console.log(arguments);
+ }
 
-// const name = name => {
-//   console.log(arguments);
-// };
-// name('Niranjan');
+ const name = name => {
+   console.log(arguments);
+ };
+ name('Niranjan');
 
 console.log('---------------------------------------------');
 
@@ -200,34 +234,34 @@ const o = {
   },
 };
 
-// o.[[Prototype]] has properties b and c.
-// o.[[Prototype]].[[Prototype]] is Object.prototype (we will explain
-// what that means later).
-// Finally, o.[[Prototype]].[[Prototype]].[[Prototype]] is null.
-// This is the end of the prototype chain, as null,
-// by definition, has no [[Prototype]].
-// Thus, the full prototype chain looks like:
-// { a: 1, b: 2 } ---> { b: 3, c: 4 } ---> Object.prototype ---> null
+ o.[[Prototype]] has properties b and c.
+ o.[[Prototype]].[[Prototype]] is Object.prototype (we will explain
+ what that means later).
+ Finally, o.[[Prototype]].[[Prototype]].[[Prototype]] is null.
+ This is the end of the prototype chain, as null,
+ by definition, has no [[Prototype]].
+ Thus, the full prototype chain looks like:
+ { a: 1, b: 2 } ---> { b: 3, c: 4 } ---> Object.prototype ---> null
 
 console.log(o.a); // 1
-// Is there an 'a' own property on o? Yes, and its value is 1.
+ Is there an 'a' own property on o? Yes, and its value is 1.
 
 console.log(o.b); // 2
-// Is there a 'b' own property on o? Yes, and its value is 2.
-// The prototype also has a 'b' property, but it's not visited.
-// This is called Property Shadowing
+ Is there a 'b' own property on o? Yes, and its value is 2.
+ The prototype also has a 'b' property, but it's not visited.
+ This is called Property Shadowing
 
 console.log(o.c); // 4
-// Is there a 'c' own property on o? No, check its prototype.
-// Is there a 'c' own property on o.[[Prototype]]? Yes, its value is 4.
+Is there a 'c' own property on o? No, check its prototype.
+ Is there a 'c' own property on o.[[Prototype]]? Yes, its value is 4.
 
 console.log(o.d); // undefined
-// Is there a 'd' own property on o? No, check its prototype.
-// Is there a 'd' own property on o.[[Prototype]]? No, check its prototype.
-// o.[[Prototype]].[[Prototype]] is Object.prototype and
-// there is no 'd' property by default, check its prototype.
-// o.[[Prototype]].[[Prototype]].[[Prototype]] is null, stop searching,
-// no property found, return undefined.
+ Is there a 'd' own property on o? No, check its prototype.
+ Is there a 'd' own property on o.[[Prototype]]? No, check its prototype.
+ o.[[Prototype]].[[Prototype]] is Object.prototype and
+ there is no 'd' property by default, check its prototype.
+ o.[[Prototype]].[[Prototype]].[[Prototype]] is null, stop searching,
+ no property found, return undefined.
 console.log(o.e);
 console.log(o.f);
 console.log(o.g);
@@ -246,3 +280,77 @@ const boxes = [
 ];
 
 console.log(boxes).__proto__;
+
+
+
+// map method
+const euroToUsd = 1.1;
+const euroToInd = 84.75;
+
+// const movementInd = movements.map(function (mov) {
+//   return mov * euroToInd;
+// });
+
+const movementInd = movements.map(mov => mov * euroToInd);
+console.log(movements);
+console.log(movementInd);
+
+let arr3 = [];
+for (let mov of movements) {
+  arr3.push(mov * euroToInd);
+}
+
+console.log(arr3);
+
+const movementDescriptions = movements.map(
+  (mov, i) =>
+    ` Movements ${i + 1}: You ${mov > 0 ? 'deposited' : 'widhdrew'}  ${Math.abs(
+      mov
+    )} `
+
+  // if (mov > 0) {
+  //   return ` Movements ${i}: You deposited ${mov}  `;
+  // } else {
+  //   return ` Movements ${i}: You credited ${Math.abs(mov)} `;
+  // }
+
+  // console.log(arr);
+);
+console.log(movementDescriptions);
+
+
+const deposit = movements.filter(function (mov) {
+  return mov > 0;
+});
+const widhdrawal = movements.filter(function (mov) {
+  return mov < 0;
+});
+
+const arrDep = [];
+const arrWthdra = [];
+for (const mov of movements) {
+  if (mov > 0) {
+    arrDep.push(mov);
+  }
+}
+for (const mov of movements) {
+  if (mov < 0) {
+    arrWthdra.push(mov);
+  }
+}
+console.log('Deposited --->', arrDep);
+console.log('Withdraw --->', arrWthdra);
+console.log(movements);
+console.log(deposit);
+console.log(widhdrawal);
+
+*/
+// Reduce Method
+
+console.log(movements);
+// accumulator ---> SNOWBALL
+const balance = movements.reduce(function (acc, cur, i, arr) {
+  console.log(` Iteration ${i} : ${acc}`);
+  return acc + cur;
+}, 0);
+console.log(balance);
