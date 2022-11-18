@@ -79,6 +79,13 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = ` ${balance} INR `;
+};
+
+calcDisplayBalance(account1.movements);
+
 const user = 'Manoj saroj'; // ms
 
 const createUsernames = function (accs) {
@@ -349,8 +356,22 @@ console.log(widhdrawal);
 
 console.log(movements);
 // accumulator ---> SNOWBALL
-const balance = movements.reduce(function (acc, cur, i, arr) {
-  console.log(` Iteration ${i} : ${acc}`);
-  return acc + cur;
-}, 0);
+
+// const balance = movements.reduce(function (acc, cur, i, arr) {
+//   console.log(` Iteration ${i} : ${acc}`);
+//   return acc + cur;
+// }, 100);
+
+const balance = movements.reduce((acc, cur) => acc + cur, 100);
+
 console.log(balance);
+
+//
+let balance2 = 100;
+for (const mov of movements) {
+  balance2 += mov;
+}
+
+console.log(balance2);
+
+// Maximum value of the movements
