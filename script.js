@@ -62,10 +62,11 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // -----------------
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
-  movements.forEach(function (mov, i) {
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
   <div class="movements__row">
@@ -215,6 +216,14 @@ btnClose.addEventListener('click', function (e) {
   }
   inputCloseUsername.value = inputClosePin.value = '';
 });
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -552,13 +561,53 @@ Every method
 console.log(movements.every(mov => mov > 0));
 console.log(account4.movements.every(mov => mov > 0));
 
-*/
-// Array and flat Array method
+
+Array and flat Array method
 
 const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
 console.log(arr.flat());
 
 const deepArr = [[[1, 2], 3], [4, [5, 6]], 7, 8];
-// console.log(deepArr.flat(1)); default
+
+console.log(deepArr.flat(1)); default
+
 console.log(deepArr.flat(2));
 console.log(deepArr.flat().flat()); //same
+
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+console.log(accountMovements.flat().reduce((acc, mov) => acc + mov, 0));
+
+flatmap
+const overAllBalance = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overAllBalance);
+
+
+
+sorting method
+
+strings
+const owners = ['Niranjan', 'Manoj', 'Shravan', 'Sunil'];
+console.log(owners.sort());
+console.log(owners);
+
+numbers
+
+console.log(movements);
+console.log(movements.sort());
+console.log(movements.sort((a, b) => a - b));
+console.log(movements.sort((a, b) => b - a));
+console.log(movements.sort((a, b) => console.log('hie')));
+
+*/
+
+console.log([1, 2, 3, 4, 5, 6, 7, 8]);
+console.log(new Array(1, 2, 3, 4, 5, 6, 7, 8));
+
+const x = new Array(7);
+// console.log(x.fill(5));
+console.log(x.fill(5, 4, 6));
+
+console.log(x);
