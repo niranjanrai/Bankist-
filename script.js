@@ -213,6 +213,7 @@ btnClose.addEventListener('click', function (e) {
 
     // hide UI
     containerApp.style.opacity = 0;
+    labelWelcome.textContent = `Welcome back `;
   }
   inputCloseUsername.value = inputClosePin.value = '';
 });
