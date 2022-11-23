@@ -677,3 +677,5 @@ console.log(Number.MAX_SAFE_INTEGER);
 console.log(23 / 0);
 console.log(545864354357657513576574538756434567687543546878354354567n);
 console.log(BigInt(545864354357657513576574538756434567687543546878354354567));
+console.log(account2.movementsDates);
+console.log(account1.movementsDates);
