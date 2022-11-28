@@ -718,7 +718,7 @@ console.log(BigInt(545864354357657513576574538756434567687543546878354354567));
 console.log(account2.movementsDates);
 console.log(account1.movementsDates);
 
-*/
+
 
 console.log(Number.MAX_SAFE_INTEGER);
 console.log(2 ** 53 - 1);
@@ -730,3 +730,9 @@ console.log(2 ** 53 + 4);
 document.querySelector('.logo').addEventListener('click', () => {
   alert('You clicked me!!');
 });
+
+*/
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(+future);
+
+//
