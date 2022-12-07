@@ -364,7 +364,7 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-const num = 12453213.454;
+// const num = 12453213.454;
 
 /* 
 console.log(`${new Intl.NumberFormat('en-UK').format(num)}`);
@@ -380,5 +380,5 @@ console.log(new Intl.NumberFormat('de-DE', options).format(num));
 
 */
 
-setTimeout(() => console.log('here is your pizza'), 3000);
+// setTimeout(() => console.log('here is your pizza'), 3000);
 // setInterval(() => console.log('here is your pizza'), 3000);
