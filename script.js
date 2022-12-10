@@ -368,25 +368,3 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 // const num = 12453213.454;
-
-/* 
-console.log(`${new Intl.NumberFormat('en-UK').format(num)}`);
-const options = {
-  style: 'currency',
-  unit: 'celsius',
-  currency: 'INR',
-};
-console.log(new Intl.NumberFormat(navigator.language, options).format(num));
-
-console.log(new Intl.NumberFormat('en-US', options).format(num));
-console.log(new Intl.NumberFormat('de-DE', options).format(num));
-
-*/
-
-// setTimeout(() => console.log('here is your pizza'), 3000);
-// setInterval(() => console.log('here is your pizza'), 3000);
-
-setInterval(() => {
-  const now = new Date();
-  console.log(now.getDate(), now.getMonth(), now.getFullYear());
-}, 3000);
