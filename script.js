@@ -385,3 +385,8 @@ console.log(new Intl.NumberFormat('de-DE', options).format(num));
 
 // setTimeout(() => console.log('here is your pizza'), 3000);
 // setInterval(() => console.log('here is your pizza'), 3000);
+
+setInterval(() => {
+  const now = new Date();
+  console.log(now.getDate(), now.getMonth(), now.getFullYear());
+}, 3000);
