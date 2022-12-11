@@ -81,7 +81,26 @@ const account4 = {
   locale: 'en-US',
 };
 
-const accounts = [account1, account2, account3, account4];
+const account5 = {
+  owner: 'Sanjay Mandal',
+  movements: [430, 1000, 700, 50, 90],
+  interestRate: 1,
+  pin: 5555,
+  movementsDates: [
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+    '2020-06-25T18:49:59.371Z',
+    '2020-07-26T12:01:20.894Z',
+  ],
+  currency: 'INR',
+  locale: 'en-US',
+};
+
+const accounts = [account1, account2, account3, account4, account5];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -214,15 +233,42 @@ const updateUI = function (acc) {
   // Display summary
   calcDisplaySummary(acc);
 };
+
+const startLogOutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    // in each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // when 0 seconds, stop the timer and log out user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+
+    // decrease 1s
+    time--;
+  };
+  // Set time to 5 minute
+  let time = 300;
+  // call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+};
 // ..................................................................//
 
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
 // Fake always login
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
@@ -267,6 +313,10 @@ btnLogin.addEventListener('click', function (e) {
     // Clear Inputfeilds
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
+
+    // timer
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
 
     // Update UI
     updateUI(currentAccount);
