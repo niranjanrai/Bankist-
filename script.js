@@ -82,7 +82,7 @@ const account4 = {
 };
 
 const account5 = {
-  owner: 'Sanjay Mandal',
+  owner: 'Sunil P',
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 5555,
